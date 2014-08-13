@@ -3,6 +3,7 @@ var express = require( 'express' ),
 
 app.set( 'views', './app/jade' );
 app.set( 'view engine', 'jade' );
+app.use( express.static( './public' ) );
 
 require( './routes' )( app );
 
