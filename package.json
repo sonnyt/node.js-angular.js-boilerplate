@@ -1,0 +1,36 @@
+{
+  "name": "node.js-angular.js-boilerplate",
+  "version": "0.0.1",
+  "description": "Node.js and Angular.js Boilerplate",
+  "main": "api/app.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sonnyt/node.js-angular.js-boilerplate.git"
+  },
+  "keywords": [
+    "Node.js",
+    "Angular.js"
+  ],
+  "author": "Sonny T. <mail@sonnyt.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sonnyt/node.js-angular.js-boilerplate/issues"
+  },
+  "homepage": "https://github.com/sonnyt/node.js-angular.js-boilerplate",
+  "dependencies": {
+    "express": "^4.8.3",
+    "grunt": "^0.4.5",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-compass": "^0.9.1",
+    "grunt-contrib-concat": "^0.5.0",
+    "grunt-contrib-copy": "^0.5.0",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-uglify": "^0.5.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-express-server": "^0.4.17",
+    "grunt-jscs": "^0.6.2",
+    "jade": "^1.5.0",
+    "load-grunt-tasks": "^0.6.0",
+    "mongoose": "^3.8.14"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "node.js-angular.js-boilerplate",
+  "version": "0.0.1",
+  "homepage": "https://github.com/sonnyt/node.js-angular.js-boilerplate",
+  "authors": [
+    "Sonny T. <mail@sonnyt.com>"
+  ],
+  "description": "Node.js and Angular.js Boilerplate",
+  "main": "api/app.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "angular": "~1.2.22",
+    "angular-resource": "~1.2.22",
+    "angular-cookies": "~1.2.22",
+    "angular-ui-router": "~0.2.10",
+    "angular-bootstrap": "~0.11.0",
+    "bootstrap-sass-official": "~3.2.0+1",
+    "fontawesome": "~4.1.0"
+  }
+}
