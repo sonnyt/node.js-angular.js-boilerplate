@@ -6,6 +6,6 @@
     *
     * Main module that loads everything
     */
-    angular.module('App', [ 'ngCookies', 'ngResource', 'ui.router', 'ui.bootstrap' ]);
+    angular.module('App', [ 'ngCookies', 'ngResource', 'ui.router', 'ui.bootstrap', 'User' ]);
 
 })( angular );

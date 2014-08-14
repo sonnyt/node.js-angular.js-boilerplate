@@ -7,12 +7,14 @@ module.exports = function( grunt ) {
         pkg: grunt.file.readJSON( 'package.json' ),
         express: {
             options: {
-                port: 3000
+                port: 3000,
+                spawn: false
             },
             dev: {
                 options: {
                     script: 'api/app.js',
-                    debug: true
+                    debug: true,
+                    spawn: false
                 }
             }
         },
@@ -167,7 +169,7 @@ module.exports = function( grunt ) {
                 tasks: [ 'copy:angular' ]
             },
             express: {
-                files: [ 'app.js', 'api/**/*.js' ],
+                files: [ 'api/**/*.js' ],
                 tasks: [ 'express:dev' ]
             }
         }
