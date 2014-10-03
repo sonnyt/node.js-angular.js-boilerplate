@@ -3,34 +3,46 @@
 
     angular.module( 'User' )
 
-    .config(function( $stateProvider, $urlRouterProvider, $locationProvider, $httpProvider ) {
-        // $httpProvider.interceptors.push(function( $rootScope, $q, $cookieStore, $state ) {
-        //     return {
-        //         request: function( config ) {
-        //             var token;
+    .config([ '$httpProvider', function( $httpProvider ) {
+        $httpProvider.interceptors.push( 'authInterceptor' );
+    } ])
 
-        //             config.headers = config.headers || {};
+    .factory( 'authInterceptor', [ '$rootScope', '$q', '$cookieStore', '$location', function( $rootScope, $q, $cookieStore, $location ) {
+        return {
+            request: function( config ) {
+                var token;
 
-        //             if ( ( token = $cookieStore.get( 'token' ) ) ) {
-        //                 config.headers.Authorization = 'Bearer ' + token;
-        //             }
+                config.headers = config.headers || {};
 
-        //             return config;
-        //         },
+                if ( ( token = $cookieStore.get( 'token' ) ) ) {
+                    config.headers.Authorization = 'Bearer ' + token;
+                }
 
-        //         responseError: function( response ) {
-        //             if ( response.status === 401 ) {
-        //                 $state.path( 'user-login' );
+                return config;
+            },
 
-        //                 // remove any stale tokens
-        //                 $cookieStore.remove( 'token' );
+            responseError: function( response ) {
+                if ( response.status === 401 ) {
+                    $location.path( '/login' );
 
-        //                 return $q.reject( response );
-        //             } else {
-        //                 return $q.reject( response );
-        //             }
-        //         }
-        //     };
-        // });
-    });
+                    // remove any stale tokens
+                    $cookieStore.remove( 'token' );
+
+                    return $q.reject( response );
+                } else {
+                    return $q.reject( response );
+                }
+            }
+        };
+    } ])
+
+    .run( [ '$rootScope', '$location', 'Auth', function( $rootScope, $location, Auth ) {
+        $rootScope.$on( '$stateChangeStart', function( event, next ) {
+            Auth.isLoggedInAsync(function( loggedIn ) {
+                if ( next.authenticate && !loggedIn ) {
+                    $location.path( '/login' );
+                }
+            });
+        });
+    } ]);
 })( angular );
