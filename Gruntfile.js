@@ -82,7 +82,7 @@ module.exports = function( grunt ) {
                     // Bootstrap Fonts
                     {
                         expand: true,
-                        cwd: 'app/bower_components/bootstrap-sass-official/assets/fonts',
+                        cwd: 'app/bower_components/bootstrap-sass/fonts',
                         src: [ '**/*' ],
                         dest: 'public/app/fonts',
                         filter: 'isFile'
