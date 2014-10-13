@@ -1,10 +1,10 @@
-(function( app ) {
+(function(app) {
     'use strict';
 
-    angular.module( 'App' )
+    angular.module('App')
 
-    .config(function( $stateProvider, $urlRouterProvider, $locationProvider, $httpProvider ) {
-        $urlRouterProvider.otherwise( '/' );
-        $locationProvider.html5Mode( true );
+    .config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+        $urlRouterProvider.otherwise('/');
+        $locationProvider.html5Mode(true);
     });
-})( angular );
+})(angular);

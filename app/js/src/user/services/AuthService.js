@@ -1,90 +1,93 @@
 /**
  * Auth Service
  */
-(function( app ) {
+(function(app) {
     'use strict';
 
-    app.module( 'User' )
+    app.module('User')
 
-    .factory( 'Auth', [ '$location', '$rootScope', '$http', 'User', '$cookieStore', '$q', function( $location, $rootScope, $http, User, $cookieStore, $q ) {
-        var currentUser = {};
+    .factory('Auth', [
+        '$location', '$rootScope', '$http', 'User', '$cookieStore', '$q',
+        function($location, $rootScope, $http, User, $cookieStore, $q) {
+            var currentUser = {};
 
-        if ( $cookieStore.get( 'token' ) ) {
-            currentUser = User.get();
-        }
+            if ($cookieStore.get('token')) {
+                currentUser = User.get();
+            }
 
-        return {
-            login: function( user ) {
-                var deferred = $q.defer();
+            return {
+                login: function(user) {
+                    var deferred = $q.defer();
 
-                $http.post( '/api/auth/local', {
-                    email: user.email,
-                    password: user.password
-                })
+                    $http.post('/api/auth/local', {
+                        email: user.email,
+                        password: user.password
+                    })
 
-                .success(function( data ) {
-                    $cookieStore.put( 'token', data.token );
+                    .success(function(data) {
+                        $cookieStore.put('token', data.token);
 
-                    currentUser = User.get();
+                        currentUser = User.get();
 
-                    deferred.resolve( data );
-                })
-                .error(function( err ) {
-                    this.logout();
+                        deferred.resolve(data);
+                    })
+                    .error(function(err) {
+                        this.logout();
 
-                    deferred.reject( err );
-                }.bind( this ));
+                        deferred.reject(err);
+                    }.bind(this));
 
-                return deferred.promise;
-            },
+                    return deferred.promise;
+                },
 
-            logout: function() {
-                $cookieStore.remove( 'token' );
+                logout: function() {
+                    $cookieStore.remove('token');
 
-                currentUser = {};
-            },
+                    currentUser = {};
+                },
 
-            signup: function( user ) {
-                return User.save( user, function( data ) {
-                        $cookieStore.put( 'token', data.token );
+                signup: function(user) {
+                    return User.save(user, function(data) {
+                        $cookieStore.put('token', data.token);
 
                         currentUser = User.get();
                     },
-                    function( err ) {
+                    function(err) {
                         this.logout();
-                    }.bind( this )).$promise;
-            },
+                    }.bind(this)).$promise;
+                },
 
-            getCurrentUser: function() {
-                return currentUser;
-            },
+                getCurrentUser: function() {
+                    return currentUser;
+                },
 
-            isLoggedIn: function() {
-                return currentUser.hasOwnProperty('role');
-            },
+                isLoggedIn: function() {
+                    return currentUser.hasOwnProperty('role');
+                },
 
-            isLoggedInAsync: function( callback ) {
-                if ( currentUser.hasOwnProperty( '$promise' ) ) {
-                    currentUser.$promise.then(function() {
-                        callback( true );
-                    }).catch(function() {
-                        callback( false );
-                    });
-                } else if ( currentUser.hasOwnProperty( 'role' ) ) {
-                    callback( true );
-                } else {
-                    callback( false );
+                isLoggedInAsync: function(callback) {
+                    if (currentUser.hasOwnProperty('$promise')) {
+                        currentUser.$promise.then(function() {
+                            callback(true);
+                        }).catch(function() {
+                            callback(false);
+                        });
+                    } else if (currentUser.hasOwnProperty('role')) {
+                        callback(true);
+                    } else {
+                        callback(false);
+                    }
+                },
+
+                isAdmin: function() {
+                    return currentUser.role === 'admin';
+                },
+
+                getToken: function() {
+                    return $cookieStore.get('token');
                 }
-            },
+            };
+        }
+    ]);
 
-            isAdmin: function() {
-                return currentUser.role === 'admin';
-            },
-
-            getToken: function() {
-                return $cookieStore.get( 'token' );
-            }
-        };
-    } ]);
-
-})( angular );
+})(angular);

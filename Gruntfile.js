@@ -1,10 +1,10 @@
-module.exports = function( grunt ) {
+module.exports = function(grunt) {
     'use strict';
 
-    require( 'load-grunt-tasks' )( grunt );
+    require('load-grunt-tasks')(grunt);
 
     grunt.initConfig({
-        pkg: grunt.file.readJSON( 'package.json' ),
+        pkg: grunt.file.readJSON('package.json'),
         express: {
             options: {
                 port: 3000,
@@ -22,7 +22,8 @@ module.exports = function( grunt ) {
         jscs: {
             src: 'app/js/src/**/*.js',
             options: {
-                preset: "jquery",
+                preset: "airbnb",
+                validateIndentation: 4,
                 validateQuoteMarks: true,
                 requireCamelCaseOrUpperCaseIdentifiers: 'ignoreProperties',
                 maximumLineLength: 600
@@ -83,7 +84,7 @@ module.exports = function( grunt ) {
                     {
                         expand: true,
                         cwd: 'app/bower_components/bootstrap-sass/fonts',
-                        src: [ '**/*' ],
+                        src: ['**/*'],
                         dest: 'public/app/fonts',
                         filter: 'isFile'
                     },
@@ -95,7 +96,7 @@ module.exports = function( grunt ) {
                         dest: 'public/cdn-static/dist/app/fonts/fontawesome',
                         filter: 'isFile'
                     },
-                ]
+               ]
             },
 
             angular: {
@@ -104,11 +105,11 @@ module.exports = function( grunt ) {
                     {
                         expand: true,
                         cwd: 'app/views',
-                        src: [ '**/*' ],
+                        src: ['**/*'],
                         dest: 'public/app/views',
                         filter: 'isFile'
                     },
-                ]
+               ]
             }
         },
 
@@ -140,7 +141,7 @@ module.exports = function( grunt ) {
                     mangle: false
                 },
                 files: {
-                    'public/app/javascript/app.min.js': [ 'public/app/javascript/app.min.js' ]
+                    'public/app/javascript/app.min.js': ['public/app/javascript/app.min.js']
                 }
             }
         },
@@ -149,40 +150,40 @@ module.exports = function( grunt ) {
             dist: {
                 options: {
                     outputStyle: 'compressed',
-                    sassDir: [ 'app/scss' ],
-                    cssDir: [ 'public/app/stylesheet' ]
+                    sassDir: ['app/scss'],
+                    cssDir: ['public/app/stylesheet']
                 }
             }
         },
 
         watch: {
             js: {
-                files: [ 'app/js/**/*.js' ],
-                tasks: [ 'concat', 'uglify' ]
+                files: ['app/js/**/*.js'],
+                tasks: ['concat', 'uglify']
             },
             css: {
-                files: [ 'app/scss/**/*.scss' ],
-                tasks: [ 'compass' ]
+                files: ['app/scss/**/*.scss'],
+                tasks: ['compass']
             },
             view: {
-                files: [ 'app/views/**/*.html' ],
-                tasks: [ 'copy:angular' ]
+                files: ['app/views/**/*.html'],
+                tasks: ['copy:angular']
             },
             express: {
-                files: [ 'api/**/*.js' ],
-                tasks: [ 'express:dev' ]
+                files: ['api/**/*.js'],
+                tasks: ['express:dev']
             }
         }
     });
 
-    grunt.registerTask( 'clean-public', 'Removing Angular Files!', function() {
-        grunt.file.delete( 'public/app' );
-        grunt.file.delete( 'app/js/library' );
+    grunt.registerTask('clean-public', 'Removing Angular Files!', function() {
+        grunt.file.delete('public/app');
+        grunt.file.delete('app/js/library');
     });
 
-    grunt.registerTask( 'serve', function ( target ) {
-        grunt.task.run( [ 'jshint', 'jscs', 'clean-public', 'copy', 'concat', 'uglify', 'compass', 'express:dev', 'watch' ] );
+    grunt.registerTask('serve', function (target) {
+        grunt.task.run(['jshint', 'jscs', 'clean-public', 'copy', 'concat', 'uglify', 'compass', 'express:dev', 'watch']);
     });
 
-    grunt.registerTask( 'default', [ 'jshint', 'jscs', 'clean-public', 'copy', 'concat', 'uglify', 'compass' ] );
+    grunt.registerTask('default', ['jshint', 'jscs', 'clean-public', 'copy', 'concat', 'uglify', 'compass']);
 };

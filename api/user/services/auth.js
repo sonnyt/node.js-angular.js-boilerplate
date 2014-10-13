@@ -1,12 +1,12 @@
 'use strict';
 
-var mongoose = require( 'mongoose' ),
-    passport = require( 'passport' ),
-    jwt = require( 'jsonwebtoken' ),
-    expressJwt = require( 'express-jwt' ),
-    compose = require( 'composable-middleware' ),
-    config = require( '../../config' ),
-    User = require( '../user.module' ),
+var mongoose = require('mongoose'),
+    passport = require('passport'),
+    jwt = require('jsonwebtoken'),
+    expressJwt = require('express-jwt'),
+    compose = require('composable-middleware'),
+    config = require('../../config'),
+    User = require('../user.module'),
     validateJwt = expressJwt({ secret: config.secrets.session });
 
 /**
@@ -16,20 +16,20 @@ var mongoose = require( 'mongoose' ),
 function isAuthenticated() {
     return compose()
         // Validate jwt
-        .use(function( req, res, next ) {
+        .use(function(req, res, next) {
             // allow access_token to be passed through query parameter as well
-            if ( req.query && req.query.hasOwnProperty( 'access_token' ) ) {
+            if (req.query && req.query.hasOwnProperty('access_token')) {
                 req.headers.authorization = 'Bearer ' + req.query.access_token;
             }
             
-            validateJwt( req, res, next );
+            validateJwt(req, res, next);
         })
         // Attach user to request
-        .use(function( req, res, next ) {
-            User.findById(req.user._id, function ( err, user ) {
-                if ( err ) return next( err );
+        .use(function(req, res, next) {
+            User.findById(req.user._id, function (err, user) {
+                if (err) return next(err);
                 
-                if ( !user ) return res.send( 401 );
+                if (!user) return res.send(401);
 
                 req.user = user;
                 
@@ -41,12 +41,12 @@ function isAuthenticated() {
 /**
  * Checks if the user role meets the minimum requirements of the route
  */
-function hasRole( roleRequired ) {
-    if ( !roleRequired ) throw new Error( 'Required role needs to be set' );
+function hasRole(roleRequired) {
+    if (!roleRequired) throw new Error('Required role needs to be set');
 
-    return compose().use( isAuthenticated() )
+    return compose().use(isAuthenticated())
         .use(function meetsRequirements(req, res, next) {
-            if ( config.userRoles.indexOf( req.user.role ) >= config.userRoles.indexOf( roleRequired ) ) {
+            if (config.userRoles.indexOf(req.user.role) >= config.userRoles.indexOf(roleRequired)) {
                 next();
             } else {
                 res.send(403);
@@ -57,20 +57,20 @@ function hasRole( roleRequired ) {
 /**
  * Returns a jwt token signed by the app secret
  */
-function signToken( id ) {
+function signToken(id) {
     return jwt.sign({ _id: id }, config.secrets.session, { expiresInMinutes: 60*5 });
 }
 
 /**
  * Set token cookie directly for oAuth strategies
  */
-function setTokenCookie( req, res ) {
-    if ( !req.user ) return res.json( 404, { message: 'Something went wrong, please try again.'} );
+function setTokenCookie(req, res) {
+    if (!req.user) return res.json(404, { message: 'Something went wrong, please try again.'});
     
-    var token = signToken( req.user._id, req.user.role );
+    var token = signToken(req.user._id, req.user.role);
 
-    res.cookie( 'token', JSON.stringify( token ) );
-    res.redirect( '/' );
+    res.cookie('token', JSON.stringify(token));
+    res.redirect('/');
 }
 
 exports.isAuthenticated = isAuthenticated;

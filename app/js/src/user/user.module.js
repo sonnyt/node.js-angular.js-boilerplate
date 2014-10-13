@@ -1,9 +1,9 @@
 /**
  * User Module
  */
-(function( app ) {
+(function(app) {
     'use strict';
 
-    var User = app.module( 'User', [ ] );
+    var User = app.module('User', []);
 
-})( angular );
+})(angular);
