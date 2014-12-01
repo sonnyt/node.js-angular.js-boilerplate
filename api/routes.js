@@ -3,6 +3,7 @@
 var path = require('path');
 
 module.exports = function(app) {
+    app.use('/api/auth', require('./user/auth.routes'));
     app.use('/api/users', require('./user/user.routes'));
 
     app.get('/*', function (req, res){
