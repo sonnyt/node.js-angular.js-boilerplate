@@ -3,8 +3,11 @@
 
     angular.module('App')
 
-    .config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
-        $urlRouterProvider.otherwise('/');
-        $locationProvider.html5Mode(true);
-    });
+    .config([
+        '$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider',
+        function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+            $urlRouterProvider.otherwise('/');
+            $locationProvider.html5Mode(true);
+        }
+    ]);
 })(angular);
