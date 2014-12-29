@@ -15,6 +15,6 @@ module.exports = {
                 safe: true
             }
         },
-        uri: 'mongodb://userinteractive:orange@kahana.mongohq.com:10069/userinteractive'
+        uri: '' // Insert URL
     }
 };
