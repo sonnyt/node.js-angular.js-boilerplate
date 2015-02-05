@@ -18,6 +18,6 @@ mongoose.connect(config.mongo.uri, config.mongo.options);
 
 require('./routes')(app);
 
-app.listen(3000, function() {
-    console.log('Server listening on port 3000');
+app.listen(config.port, function() {
+    console.log('Server listening on port ' + config.port);
 });
