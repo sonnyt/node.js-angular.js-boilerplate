@@ -10,13 +10,13 @@
                 url: '/login',
                 controller: 'authController@login',
                 templateUrl: '/views/user/login.html',
-                unauthenticate: true
+                unauthenticate: true,
             })
             .state('signup', {
                 url: '/signup',
                 controller: 'authController@signup',
                 templateUrl: '/views/user/signup.html',
-                unauthenticate: true
+                unauthenticate: true,
             });
     }
 
@@ -24,6 +24,6 @@
         .module('User')
         .config([
             '$stateProvider', '$httpProvider',
-            UserRoutes
+            UserRoutes,
         ]);
 })();

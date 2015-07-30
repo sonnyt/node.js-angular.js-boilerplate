@@ -49,11 +49,11 @@
 
             if (!currentUser) {
                 $http.get('/api/user/me')
-                     .then(function success(response) {
+                    .then(function success(response) {
                         currentUser = response.data;
 
                         user.resolve(response.data);
-                     });
+                    });
             } else {
                 user.resolve(currentUser);
             }
@@ -92,6 +92,6 @@
         .module('User')
         .factory('AuthService', [
             '$http', '$q', '$cookieStore',
-            AuthService
+            AuthService,
         ]);
 })();

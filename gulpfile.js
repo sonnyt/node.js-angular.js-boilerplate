@@ -4,22 +4,27 @@ var gulp = require('gulp');
 var uglify = require('gulp-uglify');
 var sass = require('gulp-sass');
 var concat = require('gulp-concat');
+var jshint = require('gulp-jshint');
+var jscs = require('gulp-jscs');
 var watch = require('gulp-watch');
 var del = require('del');
 
 var paths = {
-    scripts: [
-        '!**/test/*',
+    scripts: {
+        src: [
+            '!**/test/*',
 
-        './bower_components/angular/angular.js',
-        './bower_components/angular-cookies/angular-cookies.js',
-        './bower_components/angular-resource/angular-resource.js',
-        './bower_components/ui-router/release/angular-ui-router.js',
-
-        './app/js/app.js',
-        './app/js/**/module.js',
-        './app/js/**/*.js'
-    ],
+            './app/js/app.js',
+            './app/js/**/module.js',
+            './app/js/**/*.js'
+        ],
+        libs: [
+            './bower_components/angular/angular.js',
+            './bower_components/angular-cookies/angular-cookies.js',
+            './bower_components/angular-resource/angular-resource.js',
+            './bower_components/ui-router/release/angular-ui-router.js'
+        ]
+    },
     styles: [
         './app/scss/**/*.scss'
     ],
@@ -39,8 +44,20 @@ gulp.task('clean', function(cb) {
     del(['./public'], cb);
 });
 
+gulp.task('lint', function() {
+    return gulp.src(paths.scripts.src)
+               .pipe(jshint())
+               .pipe(jscs({
+                    preset: 'airbnb',
+                    validateIndentation: 4
+                }))
+               .pipe(jshint.reporter('default'));
+});
+
 gulp.task('javascript', function() {
-    return gulp.src(paths.scripts)
+    var scripts = [].concat(paths.scripts.libs, paths.scripts.src);
+
+    return gulp.src(scripts)
             .pipe(concat('app.js'))
             .pipe(uglify())
             .pipe(gulp.dest('./public/js'));
@@ -68,12 +85,14 @@ gulp.task('views', function() {
 });
 
 gulp.task('watch', function() {
-    watch(paths.styles, function() {
-        gulp.start('sass');
-    });
+    var scripts = [].concat(paths.scripts.libs, paths.scripts.src);
 
     watch(paths.scripts, function() {
         gulp.start('javascript');
+    });
+
+    watch(paths.styles, function() {
+        gulp.start('sass');
     });
 
     watch(paths.images, function() {

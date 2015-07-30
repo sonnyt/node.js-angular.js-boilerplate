@@ -13,6 +13,6 @@
         .module('App')
         .config([
             '$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider',
-            Config
+            Config,
         ]);
 })();

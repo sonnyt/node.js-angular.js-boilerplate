@@ -17,14 +17,11 @@
 
     angular
         .module('App', [
-            'ngCookies',
-            'ngResource',
-            'ui.router',
-            'User'
+            'ngCookies', 'ngResource', 'ui.router', 'User',
         ])
         .run([
             '$rootScope', '$location',
-            Run
+            Run,
         ]);
 
 })();

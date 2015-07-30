@@ -21,7 +21,7 @@
             if (form.$valid) {
                 AuthService.login({
                         email: this.user.email,
-                        password: this.user.password
+                        password: this.user.password,
                     })
                     .then(function success() {
                         // $state.go('index');
@@ -50,7 +50,7 @@
                 AuthService.signup({
                         name: this.user.name,
                         email: this.user.email,
-                        password: this.user.password
+                        password: this.user.password,
                     })
                     .then(function success() {
                         // $state.go('index');
@@ -66,11 +66,11 @@
         .module('User')
         .controller('authController@login', [
             'AuthService', '$state',
-            LoginController
+            LoginController,
         ])
         .controller('authController@signup', [
             'AuthService', '$state',
-            SignUpController
+            SignUpController,
         ]);
 
 })();

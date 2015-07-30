@@ -48,6 +48,6 @@
         .module('User')
         .factory('AuthInterceptorService', [
             '$location', '$q', '$cookieStore',
-            AuthInterceptor
+            AuthInterceptor,
         ]);
 })();
