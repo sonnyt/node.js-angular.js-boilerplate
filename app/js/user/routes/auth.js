@@ -1,10 +1,10 @@
 /**
- * User Routes
+ * Auth Routes
  */
 (function() {
     'use strict';
 
-    function UserRoutes($stateProvider) {
+    function AuthRoutes($stateProvider) {
         $stateProvider
             .state('login', {
                 url: '/login',
@@ -24,6 +24,6 @@
         .module('User')
         .config([
             '$stateProvider', '$httpProvider',
-            UserRoutes,
+            AuthRoutes,
         ]);
 })();

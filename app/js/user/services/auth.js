@@ -4,6 +4,12 @@
 (function() {
     'use strict';
 
+    /**
+     * Auth Service
+     * @param {Object} $http
+     * @param {Object} $q
+     * @param {Object} $cookieStore
+     */
     function AuthService($http, $q, $cookieStore) {
         var Auth = {};
         var currentUser;
@@ -88,10 +94,60 @@
         return Auth;
     }
 
+    /**
+     * Auth Interceptor
+     * @param {Object} $location
+     * @param {Object} $q
+     * @param {Object} $cookieStore
+     */
+    function AuthInterceptor($location, $q, $cookieStore) {
+        var Interceptor = {};
+
+        /**
+         * Request Interceptor
+         * @param  {Object} config
+         * @return {Object}
+         */
+        Interceptor.request = function request(config) {
+            var token = $cookieStore.get('token');
+
+            if (!token) return config;
+
+            config.headers = config.headers || {};
+            config.headers.Authorization = 'Bearer ' +  token;
+
+            return config;
+        };
+
+        /**
+         * Response Error Interceptor
+         * @param  {Object} response
+         * @return {Object}
+         */
+        Interceptor.responseError = function responseError(response) {
+            if (response.status === 401) {
+                $location.path('/login');
+
+                // remove any stale tokens
+                $cookieStore.remove('token');
+
+                return $q.reject(response);
+            } else {
+                return $q.reject(response);
+            }
+        };
+
+        return Interceptor;
+    }
+
     angular
         .module('User')
         .factory('AuthService', [
             '$http', '$q', '$cookieStore',
             AuthService,
+        ])
+        .factory('AuthInterceptorService', [
+            '$location', '$q', '$cookieStore',
+            AuthInterceptor,
         ]);
 })();
