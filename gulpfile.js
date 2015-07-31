@@ -12,8 +12,6 @@ var del = require('del');
 var paths = {
     scripts: {
         src: [
-            '!**/test/*',
-
             './app/js/app.js',
             './app/js/**/module.js',
             './app/js/**/*.js'
