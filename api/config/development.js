@@ -12,6 +12,6 @@ module.exports = {
                 safe: true
             }
         },
-        uri: 'mongodb://stylegreed:orange@linus.mongohq.com:10042/FinanceDashboard'
+        uri: 'mongodb://'
     }
 };
