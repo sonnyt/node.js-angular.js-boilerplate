@@ -12,6 +12,6 @@ module.exports = {
                 safe: true
             }
         },
-        uri: ''
+        uri: 'mongodb://'
     }
 };
