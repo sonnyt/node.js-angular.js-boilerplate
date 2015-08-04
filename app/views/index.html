@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html ng-app="App">
     <head>
-        <title>Welcome</title>
-        <link rel="stylesheet" href="/app/stylesheet/style.css">
+        <title>Welcome to Boilerplate</title>
+        <link rel="stylesheet" href="/css/style.css">
         <base href="/">
     </head>
     <body ng-class="pageClass">
+        {{currentUser}}
         <div ui-view></div>
 
-        <script src="/app/javascript/app.min.js"></script>
+        <script src="/js/app.js"></script>
     </body>
 </html>

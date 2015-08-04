@@ -1,22 +1,30 @@
-<div class="container">
-    <form role="form" ng-submit="signup(signupForm)" name="signupForm">
+<div class="container" ng-controller="authController@signup as Signup">
+    <form class="form-signin" name="signup" ng-submit="Signup.submit(signup)">
         <h2 class="form-signin-heading">Please sign up</h2>
 
         <div class="form-group">
-            <label for="full-name">Full Name</label>
-            <input type="text" class="form-control" id="full-name" ng-model="user.name" placeholder="Full Name" />
+            <label for="first-name">First Name</label>
+            <input type="text" class="form-control" id="first-name" ng-model="Signup.user.name.first" placeholder="First Name" />
         </div>
+
         <div class="form-group">
-            <label for="company">Company</label>
-            <input type="text" class="form-control" id="company" ng-model="user.company" placeholder="Company" />
+            <label for="last-name">Last Name</label>
+            <input type="text" class="form-control" id="last-name" ng-model="Signup.user.name.last" placeholder="Last Name" />
         </div>
+
         <div class="form-group">
             <label for="email">Email Address</label>
-            <input type="email" class="form-control" id="email" ng-model="user.email" placeholder="Email Address" />
+            <input type="email" class="form-control" id="email" ng-model="Signup.user.email" placeholder="Email Address" />
         </div>
+
         <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" ng-model="user.password" placeholder="Password" />
+            <input type="password" class="form-control" id="password" ng-model="Signup.user.password" placeholder="Password" />
+        </div>
+
+        <div class="form-group">
+            <label for="password">Confirm Password</label>
+            <input type="password" class="form-control" id="password" ng-model="Signup.user.confirm_password" placeholder="Confirm Password" />
         </div>
         <button type="submit" class="btn btn-primary btn-lg">Create Account</button>
     </form>

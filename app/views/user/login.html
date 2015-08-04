@@ -1,15 +1,15 @@
-<div class="container">
-    <form class="form-signin" role="form">
+<div class="container" ng-controller="authController@login as Login">
+    <form class="form-signin" name="login" ng-submit="Login.submit(login)">
         <h2 class="form-signin-heading">Please sign in</h2>
 
         <div class="form-group">
             <label for="email-address">Email Address</label>
-            <input type="email" id="email-address" class="form-control" placeholder="Email address" required autofocus />
+            <input type="email" id="email-address" ng-model="Login.user.email" class="form-control" placeholder="Email address" required autofocus />
         </div>
 
         <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" id="password" class="form-control" placeholder="Password" required />
+            <input type="password" id="password" ng-model="Login.user.password" class="form-control" placeholder="Password" required />
         </div>
 
         <div class="checkbox">
