@@ -11,7 +11,9 @@ module.exports = function(config) {
             './bower_components/angular-resource/angular-resource.js',
             './bower_components/ui-router/release/angular-ui-router.js',
 
-            './'
+            './app/js/app.js',
+            './app/js/**/module.js',
+            './app/js/**/*.js'
         ],
         exclude: [],
         preprocessors: {},

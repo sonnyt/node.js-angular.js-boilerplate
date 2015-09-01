@@ -80,7 +80,7 @@
          * @return {Boolean}
          */
         Auth.isAdmin = function isAdmin() {
-            return currentUser === 'admin';
+            return currentUser.role === 'admin';
         };
 
         /**

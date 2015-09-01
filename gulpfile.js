@@ -8,10 +8,12 @@ var jshint = require('gulp-jshint');
 var jscs = require('gulp-jscs');
 var watch = require('gulp-watch');
 var del = require('del');
+var Server = require('karma').Server;
 
 var paths = {
     scripts: {
         src: [
+            '!./app/js/**/test/**',
             './app/js/app.js',
             './app/js/**/module.js',
             './app/js/**/*.js'
@@ -80,6 +82,13 @@ gulp.task('fonts', function() {
 gulp.task('views', function() {
     return gulp.src(paths.views)
             .pipe(gulp.dest('./public/views'));
+});
+
+gulp.task('test', function (done) {
+    new Server({
+        configFile: __dirname + '/karma.conf.js',
+        singleRun: true
+    }, done).start();
 });
 
 gulp.task('watch', function() {
