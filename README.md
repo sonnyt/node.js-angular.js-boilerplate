@@ -13,6 +13,7 @@ Single page web application is built using:
 
 ## Installation
 Make sure you have the latest Node.js installed and run the command `npm run setup` which will:
+
 1. Install NPM packages
 2. Install Bower packages
 3. Build the applicaiton
